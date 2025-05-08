@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+    <div id="root">
+        <div class="container-fluid text-center position-absolute" style="top: 40%;">
+            <div class="btn btn-primary" onclick="location.reload()">Refresh</div>
+        </div>
+    </div>
+    <script>
+        fetch('http://127.0.0.1:5500').then(response => {
+            const data = response.text()
+            data.then(code => {
+                console.log(code)
+            })
+        })
+    </script>
+</body>
+</html>
