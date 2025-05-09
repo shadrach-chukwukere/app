@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag Down to Reload</title>
+    <style>
+        #reload-container {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#reload-icon {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.2s ease-in-out;
+}
+
+#reload-icon.show {
+  top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="reload-container">
+        <div id="reload-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-refresh-ccw" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 12 12 12 12 12"></polyline>
+                <polyline points="12 12 12 12 12 12"></polyline>
+            </svg>
+        </div>
+
+    </div>
+
+    <script>
+
+const reloadContainer = document.getElementById('reload-container');
+const reloadIcon = document.getElementById('reload-icon');
+let isDragging = false;
+let startY = 0;
+
+reloadContainer.addEventListener('touchstart', handleTouchStart);
+reloadContainer.addEventListener('touchmove', handleTouchMove);
+reloadContainer.addEventListener('touchend', handleTouchEnd);
+
+function handleTouchStart(e) {
+  isDragging = true;
+  startY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+  if (isDragging) {
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 50) {
+      reloadIcon.classList.add('show');
+    } else {
+      reloadIcon.classList.remove('show');
+    }
+  }
+}
+
+function handleTouchEnd() {
+  isDragging = false;
+  if (reloadIcon.classList.contains('show')) {
+    // Reload content here
+    console.log('Reload triggered!');
+    reloadIcon.classList.remove('show');
+  }
+}
+
+</script></body>
+</html>
